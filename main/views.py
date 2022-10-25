@@ -13,9 +13,13 @@ def main(request):
 
 def list(request):
     user_objects = Employee.objects.all()
-    print(user_objects)
+    print(f'user_objects - {user_objects}')
     #return HttpResponse('user_objects')
     return render(request, 'main/list.html', {'user_objects': user_objects})
+
+
+def aaa(request):
+    return HttpResponse('aaa')
 
 
 def register(request):
