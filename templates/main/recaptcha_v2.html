@@ -1,0 +1,22 @@
+{%extends "layout.html"%}
+
+{% block title %} {{ article.article_title }} {% endblock %}
+
+{%block content%}
+
+<html>
+  <head>
+    <title>reCAPTCHA demo: Simple page</title>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  </head>
+
+  <body>
+    <form action="recaptcha_v2" method="POST" id="form">
+      {% csrf_token %}
+      <div class="g-recaptcha" data-sitekey="{{key}}"></div>
+      <input type="submit" value="Submit">
+      <br/>
+    </form>
+  </body>
+</html>
+ {%endblock%}
