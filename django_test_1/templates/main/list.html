@@ -9,7 +9,12 @@
   id - name - mail <br>
   {% for user in user_objects %}
   <a href="{% url 'main:event' user.id %}">
-    {{user.id}} - {{user.name}} - {{ user.mail}} - {{ user.status}}</a><br>
+    {{user.id}} - {{user.name}} - {{ user.mail}} - {{ user.status}}</a> 
+  <form action="{% url 'main:delete' user.id %}" method="POST">
+    {% csrf_token %}
+  <button type="submit">Delete</button>
+
+  </form><br>
   {%endfor%} 
 
 {%endblock%}

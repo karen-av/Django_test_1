@@ -37,6 +37,7 @@ def event(request, user_id):
 
 
 def register(request):
+
     token = request.POST["id_token"]
     responseCaptcha = requests.post('https://www.google.com/recaptcha/api/siteverify', 
         data={'secret': RECAPTCHA_SECRET_KEY_V3, 'response': token}).json()
@@ -53,12 +54,12 @@ def register(request):
     print(f"username - {username}\npassword - {password}\nstatus - {status}")
 
     #create data in db
-    user = Employee(name = username, mail = password, status = status)
-    #user.save()
+    user = Employee(name = username, mail = password, status = status)    
+    if 'save' in request.POST:
+        user.save()
+        messages.info(request, 'Save')
+    return HttpResponseRedirect('/main/list')
 
-    messages.info(request, 'Done')
-    #return HttpResponse('user_objects')
-    return HttpResponseRedirect('/')
 
 def recaptcha_v2(request):
     if request.method == 'GET':
@@ -74,3 +75,10 @@ def recaptcha_v2(request):
             messages.info(request, 'False')
         
         return HttpResponseRedirect('/')
+
+
+def delete(request, user_id):
+    if request.method == "POST":
+        user = Employee.objects.get(id = user_id)
+        user.delete()
+    return HttpResponseRedirect('/main/list/')
