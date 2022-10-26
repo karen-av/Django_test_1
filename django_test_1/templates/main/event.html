@@ -1,0 +1,36 @@
+{%extends "layout.html"%}
+
+{% block title %} {{ user_objects.0.name }} {% endblock %}
+
+{%block content%}
+<head>
+  <script src="https://www.google.com/recaptcha/api.js?render={{key}}"></script>
+  <script>
+    function onClick(e) {
+      grecaptcha.ready(function() {
+        grecaptcha.execute('{{key}}', {action: 'submit'}).then(function(token) {
+            document.getElementById("token").value = token;
+            //console.log(document.getElementById("token").value)
+        });
+      });
+    }
+</script>
+</head>
+
+  Event<br>
+  
+  пользователь - {{user_objects.0.id}} - {{user_objects.0.name}} - {{user_objects.0.mail}} - {{user_objects.0.status}}<br>
+  события:<br>
+
+  {% for event in events %}
+  {{ forloop.counter }} - {{event.message}}<br>
+  {%endfor%}
+
+  <form action="{% url 'main:event' user_objects.0.id %}" method="post" onclick="onClick()">
+    {% csrf_token %}
+    <input type="hidden" name="token" id="token">
+    <textarea name="event" rows="5" cols="30" maxlength="50"></textarea><br>
+    <button type="submit">Create event</button>
+  </form>
+
+{%endblock%}

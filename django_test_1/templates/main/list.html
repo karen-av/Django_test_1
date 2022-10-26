@@ -1,18 +1,15 @@
 {%extends "layout.html"%}
 
-{% block title %} {{ article.article_title }} {% endblock %}
+{% block title %}   {% endblock %}
 
 {%block content%}
 
   List<br>
-  <a href="/">index</a>
-  <a href="/main/">main</a>
-  <a href="/main/list">list</a><br>
+  
   id - name - mail <br>
   {% for user in user_objects %}
-  {{user.id}} - {{user.name}} - {{ user.mail}} - {{ user.status}}<br>
-
-
+  <a href="{% url 'main:event' user.id %}">
+    {{user.id}} - {{user.name}} - {{ user.mail}} - {{ user.status}}</a><br>
   {%endfor%} 
 
 {%endblock%}

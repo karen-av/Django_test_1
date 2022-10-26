@@ -6,7 +6,6 @@
         <title>{% block title %} My site {% endblock %}</title>
     </head>
     <body>
-        
         {% if messages %}
         <ul class="messages">
             {% for message in messages %}
@@ -14,6 +13,11 @@
             {% endfor %}
         </ul>
         {% endif %}
+        <br>
+        <a href="/">index</a>
+        <a href="/main/">registration (main)</a>
+        <a href="/main/list">list</a>
+        <a href="/admin">admin</a><br>
         {%block content%} {%endblock%}
     </body>
 </html>
